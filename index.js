@@ -137,9 +137,11 @@ function walk (root, cb, immutable) {
                 if (stopHere) keepGoing = false;
             },
             'delete' : function (stopHere) {
-                this.parent.after(function() {
-                    this.update(this.node.filter(e => e));
-                });
+                if (Array.isArray(this.parent.node)){
+                    this.parent.after(function() {
+                        this.update(this.node.filter(e => e));
+                    });
+                }
                 delete state.parent.node[state.key];
                 if (stopHere) keepGoing = false;
             },
